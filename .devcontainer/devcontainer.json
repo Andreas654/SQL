@@ -1,0 +1,13 @@
+{
+  "name": "SQL Development Environment",
+  "dockerFile": "Dockerfile",
+  "extensions": [
+    "ms-mssql.mssql",
+    "ms-python.python"
+  ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "forwardPorts": [1433],
+  "postCreateCommand": "python -m pip install -r requirements.txt"
+}
