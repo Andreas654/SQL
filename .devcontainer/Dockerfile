@@ -8,6 +8,9 @@ EXPOSE 1433
 # Install necessary packages
 RUN apt-get update && \
     apt-get install -y \
+    software-properties-common && \
+    apt-get update && \
+    apt-get install -y \
     python3 \
     python3-pip \
     && apt-get clean \
