@@ -5,11 +5,22 @@ ENV SA_PASSWORD=YourStrong!Passw0rd
 
 EXPOSE 1433
 
-# Optional: Installieren Sie zusätzliche Tools oder Bibliotheken
-RUN apt-get update && apt-get install -y \
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y \
     python3 \
-    python3-pip
+    python3-pip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Optional: Kopieren Sie Ihre SQL-Skripte oder andere Dateien
+# Optional: Install additional tools or libraries
+RUN apt-get update && \
+    apt-get install -y \
+    curl \
+    wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Optional: Copy your SQL scripts or other files
 COPY . /workspace
 WORKDIR /workspace
