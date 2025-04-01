@@ -6,15 +6,13 @@ ENV SA_PASSWORD=YourStrong!Passw0rd
 EXPOSE 1433
 
 # Install necessary packages
-RUN apt-get update && \
-    apt-get install -y \
-    software-properties-common && \
-    apt-get update && \
-    apt-get install -y \
-    python3 \
-    python3-pip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y sudo
+
+RUN sudo apt-get update && \
+    sudo apt-get install -y software-properties-common && \
+    sudo apt-get update && \
+    sudo apt-get install -y python3 python3-pip && \
+    sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
 
 # Optional: Install additional tools or libraries
 RUN apt-get update && \
