@@ -1,27 +1,13 @@
-FROM mcr.microsoft.com/mssql/server:2019-latest
+FROM mysql:latest
 
-ENV ACCEPT_EULA=Y
-ENV SA_PASSWORD=YourStrong!Passw0rd
+# Setze Root-Passwort und erstelle eine Beispiel-Datenbank
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=testdb
+ENV MYSQL_USER=testuser
+ENV MYSQL_PASSWORD=testpass
 
-EXPOSE 1433
+# Kopiere ein SQL-Skript zum Erstellen von Tabellen
+COPY init.sql /docker-entrypoint-initdb.d/
 
-# Install necessary packages
-RUN rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /var/lib/apt/lists/partial && \
-    apt-get update && \
-    apt-get install -y software-properties-common && \
-    apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Optional: Install additional tools or libraries
-RUN apt-get update && \
-    apt-get install -y \
-    curl \
-    wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Optional: Copy your SQL scripts or other files
-COPY . /workspace
-WORKDIR /workspace
+# Exponiere den Standard-MySQL-Port
+EXPOSE 3306
